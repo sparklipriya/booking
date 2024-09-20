@@ -1,0 +1,521 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    height: 55vh;
+    
+    align-items: flex-start;
+    justify-content: space-between; /* Distribute the sections */
+    padding: 20px;
+ 
+}
+
+
+
+.booking-status {
+    
+    background-color: #007BFF; /* Blue background for Booking Status */
+    width: 25%; /* Adjusted width for Booking Status */
+    height: 60%;
+}
+
+.warning-status {
+    background-color: #dc3545; /* Red background for Warning */
+    width: 25%; /* Adjusted width for Warning */
+    height: 60%;
+}
+
+.center-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Stack the "SCREEN" and the booking form */
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+}
+
+.screen {
+    background-color: yellow;
+    height: 50px; /* Adjusted height to prevent scrolling issues */
+    width: 100%; /* Ensure full width */
+    padding: 10px; /* Padding to adjust the content */
+    box-sizing: border-box; /* Include padding in the width */
+    text-align: center;
+    margin-bottom: 5px; /* Space between "SCREEN" and the form */
+    overflow: hidden; /* Prevent any overflow */
+}
+
+.screen-text {
+    
+    font-size: 1em;
+    font-weight: bold;
+}
+
+.ticket-booking {
+    background-color: #7c2121; /* Background color for the booking form */
+    border-top: 2px solid #1c753c; /* Top border to visually separate */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px; /* Set a max width for the booking form */
+    height: 43vh;
+}
+
+
+.heading {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.01px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    padding: 0.5px;
+    font-size: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Full width of the form field */
+}
+
+button.btn-ok {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center; /* Center the button horizontally */
+}
+
+button.btn-ok:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+thead {
+    background-color: #0056b3;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0095d9;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #007bff;
+}
+
+th {
+    background-color: #003d7a;
+    color: #fff;
+}
+
+td {
+    color: #fff;
+}
+
+th:nth-child(1), td:nth-child(1) {
+    width: 30%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 20%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+    width: 25%;
+}
+
+th:nth-child(4), td:nth-child(4) {
+    width: 25%;
+}
+
+/* Black Rectangle with Path Content */
+.black-rectangle {
+    background-color: black;
+    height: 40px; /* Adjust height as needed */
+    width: 100%;
+    margin-top: 20px;
+    position: relative; /* Needed for absolute positioning of child elements */
+    display: flex;
+    justify-content: space-between; /* Space out the paths */
+    align-items: center; /* Center the paths vertically */
+    padding: 0 10px; /* Optional padding */
+    color: white; /* Text color */
+    font-size: 1.1em; /* Font size for the paths */
+}
+
+.path {
+    margin-top: 0.1%;
+    position: absolute;
+    color: white;
+    font-size: 1.2em; /* Adjust if needed */
+}
+
+.path.left {
+    left: 120px; /* Space from the left edge */
+}
+
+.path.right {
+    right: 200px; /* Space from the right edge */
+}
+
+
+/* Seating Area 1 */
+.seating-area1 {
+    display: flex; /* Ensure this container is using flex layout */
+    flex-direction: row; /* Align children in a row */
+    align-items: flex-start; /* Align items to the start */
+}
+
+.seat-row1, .seat-row11 {
+    display: flex; /* Make sure both rows use flexbox */
+}
+
+.seat-row1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-row11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 2 */
+.seating-area2 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowM1, .seat-rowM11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowM1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowM11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 3 */
+.seating-area3 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowL1, .seat-rowL11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowL1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowL11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 4 (K Row) */
+.seating-area4 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowK1, .seat-rowK11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowK1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowK11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 5 (J Row) */
+.seating-area5 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowJ1, .seat-rowJ11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowJ1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowJ11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+.seating-area6 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowH1, .seat-rowH11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowH1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowH11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 7 (G Row) */
+.seating-area7 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowG1, .seat-rowG11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowG1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowG11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+/* Seating Area 8 (F Row) */
+.seating-area8 {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowF1, .seat-rowF11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowF1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowF11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+
+
+.seating-areaA {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    width: 100%; /* Ensure container spans full width */
+}
+
+.seat-rowA1, .seat-rowA11 {
+    display: flex; /* Flex container for row items */
+    width: auto;
+}
+
+.seat-rowA1 {
+    justify-content: flex-start; /* Align items to the start of the row */
+}
+
+.seat-rowA11 {
+    margin-left: auto; /* Push this row to the right end */
+    justify-content: flex-end; /* Align items to the end of the row */
+}
+.lobby-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; /* Adjust size as needed */
+    font-weight: bold;
+    color: black;
+    background-color: #f0f0f0;
+    width: 100px; /* Adjust width to fine-tune centering */
+    height: 35px; /* Match the height of the seats */
+    margin: 5px auto; /* Center horizontally */
+    text-align: center;
+    padding: 0 15px; /* Add padding to center the text more */
+    flex-grow: 1; /* Allow the text to take up more space */
+}
+.lobby-text2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; /* Adjust size as needed */
+    font-weight: bold;
+    color: white;
+    width: 100px; /* Adjust width to fine-tune centering */
+    height: 35px; /* Match the height of the seats */
+    text-align: center;
+    flex-grow: 1;
+    z-index: 1; /* Allow the text to take up more space */
+}
+
+.rectangular-box-screen {
+    position: absolute;
+    background-color: brown;
+    width: 370px; /* Adjust width as needed */
+    height: 27%;
+    top: 80; /* Start at the top of the space between D13 and D12 */
+    /* Extend to the bottom of the page */
+    left: calc(45% - 100px); /* Adjust this to place it between D13 and D12 */
+}
+
+
+
+.seat {
+    width: 35px;
+    height: 35px;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+
+.steps {
+    background-color: brown;
+}
+
+.seat.selected {
+    background-color: red; /* Change color if selected */
+}
+
+.black-rectangle-container {
+    position: relative; /* Container to position the paths absolutely */
+    width: 100%;
+}
+
+.black-rectangle2 {
+    background-color: black;
+    height: 40px; /* Adjust height as needed */
+    width: 100%;
+}
+
+.path.left2, .path.right2 {
+    position: absolute; /* Positioning paths absolutely */
+    color: white; /* Text color */
+    font-size: 1.3em; /* Adjust font size if needed */
+    top: 50%; /* Center vertically relative to the black rectangle */
+    transform: translateY(-50%); /* Adjust vertical alignment */
+}
+
+.path.left2 {
+    left: 120px; /* Space from the left edge */
+}
+
+.path.right2 {
+    right: 200px; /* Space from the right edge */
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack sections vertically */
+        height: auto; /* Adjust height */
+    }
+
+    .booking-status, .warning-status {
+        width: 100%; /* Full width for smaller screens */
+        height: auto; /* Adjust height */
+    }
+
+    .ticket-booking {
+        max-width: 100%; /* Full width for smaller screens */
+    }
+}
+
+.seat.selected {
+    background-color: red; /* Change color to indicate selection */
+    cursor: not-allowed;
+}
+.seat.booked {
+    background-color: gray; /* Example color for booked seats */
+    cursor: not-allowed;
+}
+
+.seat {
+    width: 35px;
+    height: 35px;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    cursor: pointer;
+}
+.status-near-full {
+    background-color: #ffcc00; /* Yellow to indicate near full */
+}
+
+
