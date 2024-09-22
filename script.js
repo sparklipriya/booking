@@ -1,103 +1,107 @@
-// JavaScript to handle booking
-let selectedSeats = [];
+const bookingForm = document.getElementById('bookingForm');
+const seats = document.querySelectorAll('.seat');
 const maxSeatsInput = document.getElementById('seat');
+const bookingStatusTable = document.getElementById('bookingStatusTable');
+const errorContainer = document.getElementById('errorContainer'); // Container for error messages
+let selectedSeats = [];
+seats.forEach(seat => {
+    seat.addEventListener('click', () => handleSeatSelection(seat));
+  });
 
-document.querySelectorAll('.seat').forEach(seat => {
-    seat.addEventListener('click', () => {
-        const seatCount = parseInt(maxSeatsInput.value) || 0; // Default to 0 if invalid
+  function handleSeatSelection(seat) {
+    const seatCount = parseInt(maxSeatsInput.value) || 0;
+    const seatId = seat.id;
+  
+    // Check if the seat is already booked or selected
+    if (seat.classList.contains('booked')) {
+      return; // Ignore clicks on booked seats
+    }
+  
+    // Toggle selection based on seat count
+    if (selectedSeats.includes(seatId)) {
+      // Deselect the seat
+      seat.classList.remove('selected');
+      selectedSeats = selectedSeats.filter(id => id !== seatId);
+    } else if (selectedSeats.length < seatCount) {
+      // Select the seat if the limit is not reached
+      seat.classList.add('selected');
+      selectedSeats.push(seatId); // Add seat ID to selection
+    } else {
+      alert(`You can only select ${seatCount} seat(s).`);
+    }
+  }  
 
-
-        // Check if the seat is already booked
-        if (seat.classList.contains('booked')) {
-            alert('This seat is already booked!');
-            return;
-        }
-
-        // Toggle selection
-        if (seat.classList.contains('selected')) {
-            seat.classList.remove('selected');
-            selectedSeats = selectedSeats.filter(s => s !== seat.id); // Remove seat from selection
-        } else {
-            if (selectedSeats.length < seatCount) {
-                seat.classList.add('selected');
-                selectedSeats.push(seat.id); // Add seat to selection
-            } else {
-                alert(`You can only select ${seatCount} seats.`);
-            }
-        }
-    });
-});
-
-document.getElementById('bookingForm').addEventListener('submit', function (event) {
-    let valid = true;
-    let errorMessage = '';
-
+  bookingForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent default form submission
+  
+    // Get user input
     const rank = document.getElementById('rank').value;
     const name = document.getElementById('name').value.trim();
     const seatCount = parseInt(maxSeatsInput.value);
-    
-
     const date = document.getElementById('date').value;
     const time = document.getElementById('time').value;
-
-    if (!rank) {
-        valid = false;
-        errorMessage += 'Please select your rank.\n';
+  
+    // Validate form inputs
+    const errorMessage = validateBookingForm(rank, name, seatCount, date, time);
+    if (errorMessage) {
+      displayErrorMessage(errorMessage);
+      return;
     }
-    if (!name) {
-        valid = false;
-        errorMessage += 'Please enter your name.\n';
+  
+    // Check if the selected seats match the required seat count
+    if (selectedSeats.length !== seatCount) {
+      displayErrorMessage(`You must select exactly ${seatCount} seat(s).`);
+      return;
     }
-    if (!seatCount || seatCount <= 0) {
-        valid = false;
-        errorMessage += 'Please enter a valid seat number.\n';
-    }
-    if (!date) {
-        valid = false;
-        errorMessage += 'Please select a date.\n';
-    }
-    if (!time) {
-        valid = false;
-        errorMessage += 'Please select a time.\n';
-    }
+  
+    // Book the selected seats
+    bookSelectedSeats();
+  
+    // Update booking status
+    updateBookingStatus(rank, selectedSeats.length);
+  
+    // Display a success message
+    alert(`Booking confirmed for seats: ${selectedSeats.join(', ')}`);
+  
+    // Clear selected seats and reset form
+    clearBookingForm();
+  });
 
-    if (!valid) {
-        event.preventDefault(); // Prevent form submission
-        alert(errorMessage); // Show error messages
-    } else {
-        // Mark the selected seats as booked
-        selectedSeats.forEach(seatId => {
-            const seat = document.getElementById(seatId);
-            seat.classList.add('booked'); // Mark the seat as booked
-            seat.classList.remove('selected'); // Remove selection visual
-        });
-        alert(`Booking confirmed for seats: ${selectedSeats.join(', ')}`);
-        
-        // Keep booked seats in selectedSeats for future use, if needed
-        // Clear the selection array to prevent confusion
-        // Call updateBookingStatus after confirming the booking
-        updateBookingStatus(rank, selectedSeats.length);
-
-        selectedSeats = [];
-    }
-});
-
-function updateBookingStatus(rank, seatCount) {
-    const rankRows = document.querySelectorAll('.status-table tbody tr');
-
-    rankRows.forEach(row => {
-        const statusCell = row.querySelector('td:first-child'); // Get the status cell
-
-        // Check if the rank matches the status in the cell
-        if (statusCell.textContent === rank) {
-            const bookedCell = row.querySelector('.bookeds'); // Select booked cell
-            const remainingCell = row.querySelector('.remaining'); // Select remaining cell
-            const seatCount = parseInt(maxSeatsInput.value);
-            console.log('Seat count:', seatCount);
-
-            // Update booked and remaining counts
-            bookedCell.textContent = parseInt(bookedCell.textContent) + seatCount; // Increment booked seats
-            remainingCell.textContent = parseInt(remainingCell.textContent) - seatCount; // Decrement remaining seats
-        }
+  function validateBookingForm(rank, name, seatCount, date, time) {
+    if (!rank) return 'Please select your rank.';
+    if (!name) return 'Please enter your name.';
+    if (!seatCount || seatCount <= 0) return 'Please enter a valid seat number.';
+    if (!date) return 'Please select a date.';
+    if (!time) return 'Please select a time.';
+    return null; // No error
+  }
+  function bookSelectedSeats() {
+    selectedSeats.forEach(seatId => {
+      const seat = document.getElementById(seatId);
+      seat.classList.add('booked');
+      seat.classList.remove('selected');
     });
-}
+  }
+  function updateBookingStatus(rank, seatCount) {
+    const rankRows = document.querySelectorAll('.status-table tbody tr');
+  
+    rankRows.forEach(row => {
+      const statusCell = row.querySelector('td:first-child');
+  
+      if (statusCell.textContent === rank) {
+        const bookedCell = row.querySelector('.bookeds');
+        const remainingCell = row.querySelector('.remaining');
+  
+        bookedCell.textContent = parseInt(bookedCell.textContent) + seatCount;
+        remainingCell.textContent = parseInt(remainingCell.textContent) - seatCount;
+      }
+    });
+  }  
+  function clearBookingForm() {
+    bookingForm.reset(); // Reset form fields
+    selectedSeats = []; // Clear selected seats
+    errorContainer.textContent = ''; // Clear error messages
+  }
+  function displayErrorMessage(message) {
+    errorContainer.textContent = message; // Display error message
+  }
