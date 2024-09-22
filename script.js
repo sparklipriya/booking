@@ -50,7 +50,7 @@ seats.forEach(seat => {
   
     // Check if the selected seats match the required seat count
     if (selectedSeats.length !== seatCount) {
-      displayErrorMessage(`You must select exactly ${seatCount} seat(s).`);
+      alert(`You must select exactly ${seatCount} seat(s).`);
       return;
     }
   
@@ -83,20 +83,39 @@ seats.forEach(seat => {
     });
   }
   function updateBookingStatus(rank, seatCount) {
-    const rankRows = document.querySelectorAll('.status-table tbody tr');
-  
+    const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
+    
+    // Trim the rank from the form to remove extra spaces
+    const trimmedRank = rank.trim();
+
     rankRows.forEach(row => {
-      const statusCell = row.querySelector('td:first-child');
-  
-      if (statusCell.textContent === rank) {
-        const bookedCell = row.querySelector('.bookeds');
-        const remainingCell = row.querySelector('.remaining');
-  
-        bookedCell.textContent = parseInt(bookedCell.textContent) + seatCount;
-        remainingCell.textContent = parseInt(remainingCell.textContent) - seatCount;
-      }
+        // Trim the rank from the table to ensure matching works with spaces
+        const statusCell = row.querySelector('td:first-child').textContent.trim();
+
+        if (statusCell === trimmedRank) {
+            const totalCell = row.querySelector('.total');
+            const bookedCell = row.querySelector('.bookeds');
+            const remainingCell = row.querySelector('.remaining');
+
+            const totalSeats = parseInt(totalCell.textContent);
+            const bookedSeats = parseInt(bookedCell.textContent);
+            const remainingSeats = parseInt(remainingCell.textContent);
+
+            // Check if enough seats are available
+            if (remainingSeats < seatCount) {
+                displayErrorMessage('Not enough remaining seats available.');
+                return;
+            }
+
+            // Update the booked and remaining seats
+            bookedCell.textContent = bookedSeats + seatCount;
+            remainingCell.textContent = remainingSeats - seatCount;
+            
+            alert(`Booking confirmed for ${seatCount} seats in ${trimmedRank}.`);
+        }
     });
-  }  
+}
+
   function clearBookingForm() {
     bookingForm.reset(); // Reset form fields
     selectedSeats = []; // Clear selected seats
