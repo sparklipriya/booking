@@ -1,191 +1,150 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
 }
 
 .container {
-    display: flex;
-    height: 55vh;
+    display: flex; /* Use flexbox to position items */
+    justify-content: space-between; /* Space between tables */
     
-    align-items: flex-start;
-    justify-content: space-between; /* Distribute the sections */
-    padding: 20px;
- 
+    padding: 0; /* Remove default body padding */
 }
 
-
-
-.booking-status {
+.status-table,
+.warning-table {
+    margin-left: -20px;
+    margin-right: 0px; /* Space between tables */
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
     
-    background-color: #007BFF; /* Blue background for Booking Status */
-    width: 25%; /* Adjusted width for Booking Status */
-    height: 60%;
-}
-
-.warning-status {
-    background-color: #dc3545; /* Red background for Warning */
-    width: 25%; /* Adjusted width for Warning */
-    height: 60%;
-}
-
-.center-section {
-    flex: 1;
-    display: flex;
-    flex-direction: column; /* Stack the "SCREEN" and the booking form */
-    align-items: center;
-    justify-content: center; /* Center content vertically */
-}
-
-.screen {
-    background-color: yellow;
-    height: 50px; /* Adjusted height to prevent scrolling issues */
-    width: 100%; /* Ensure full width */
-    padding: 10px; /* Padding to adjust the content */
-    box-sizing: border-box; /* Include padding in the width */
-    text-align: center;
-    margin-bottom: 5px; /* Space between "SCREEN" and the form */
-    overflow: hidden; /* Prevent any overflow */
-}
-
-.screen-text {
-    
-    font-size: 1em;
-    font-weight: bold;
-}
-
-.ticket-booking {
-    background-color: #7c2121; /* Background color for the booking form */
-    border-top: 2px solid #1c753c; /* Top border to visually separate */
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 600px; /* Set a max width for the booking form */
-    height: 43vh;
-}
-
-
-.heading {
-    margin: 0;
-    padding: 10px;
-    text-align: center;
-    font-size: 1em;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.01px;
-}
-
-label {
-    font-weight: bold;
-}
-
-input, select {
-    padding: 0.5px;
-    font-size: 0.5em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%; /* Full width of the form field */
-}
-
-button.btn-ok {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #28a745;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: center; /* Center the button horizontally */
-}
-
-button.btn-ok:hover {
-    background-color: #218838;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
-    width: 100%;
+    width: 100%; /* Keep table width 100% of its container */
     border-collapse: collapse;
 }
 
 th, td {
-    border: 1px solid #fff;
-    padding: 10px;
+    border: 1px solid #ddd;
+    padding: 12px;
     text-align: center;
 }
 
-thead {
-    background-color: #0056b3;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #0095d9;
-}
-
-tbody tr:nth-child(odd) {
-    background-color: #007bff;
-}
-
 th {
-    background-color: #003d7a;
-    color: #fff;
-}
-
-td {
-    color: #fff;
-}
-
-th:nth-child(1), td:nth-child(1) {
-    width: 30%;
-}
-
-th:nth-child(2), td:nth-child(2) {
-    width: 20%;
-}
-
-th:nth-child(3), td:nth-child(3) {
-    width: 25%;
-}
-
-th:nth-child(4), td:nth-child(4) {
-    width: 25%;
-}
-
-/* Black Rectangle with Path Content */
-.black-rectangle {
-    background-color: black;
-    height: 40px; /* Adjust height as needed */
-    width: 100%;
-    margin-top: 20px;
-    position: relative; /* Needed for absolute positioning of child elements */
-    display: flex;
-    justify-content: space-between; /* Space out the paths */
-    align-items: center; /* Center the paths vertically */
-    padding: 0 10px; /* Optional padding */
-    color: white; /* Text color */
-    font-size: 1.1em; /* Font size for the paths */
-}
-
-.path {
-    margin-top: 0.1%;
-    position: absolute;
+    background-color: #007bff;
     color: white;
-    font-size: 1.2em; /* Adjust if needed */
 }
 
-.path.left {
-    left: 120px; /* Space from the left edge */
+tr:nth-child(even) {
+    background-color: #cce5ff; /* Light blue for even rows */
 }
 
-.path.right {
-    right: 200px; /* Space from the right edge */
+tr:nth-child(odd) {
+    background-color: #b3d7ff; /* Dark blue for odd rows */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Optional hover effect */
+}
+
+.booked {
+    color: #dc3545; /* Red for booked seats */
+}
+
+.remaining {
+    color: #28a745; /* Green for remaining seats */
+}
+
+.warning {
+    color: #dc3545; /* Red for warnings */
+}
+
+.status-heading {
+    text-align: center;
+    margin-bottom: 10px; /* Space between heading and table */
+}
+.screen-box {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+    width: 100%;
+    height: 50px; /* Set height for the box */
+    background-color: yellow; /* Background color */
+    color: black; /* Text color */
+    margin: 0 auto 120px; /* Center the box and add space below */
+    font-size: 24px; /* Font size */
+}
+.status-table {
+    margin-bottom: 0; /* Eliminate space below the table */
 }
 
 
-/* Seating Area 1 */
+.form-container {
+    width: 2950px; /* Match the width of the tables */
+    background-color: #fff; /* Background color */
+    padding: 15px; /* Padding for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 70px 0 20px 0; /* Increased top margin to shift it down */
+    position: relative; /* Enable positioning */
+    left: -120px; /* Shift the form to the left */
+}
+
+button {
+    padding: 10px; /* Button padding */
+    background-color: #007bff; /* Button color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+.booking-form {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+}
+
+.form-group {
+    display: flex; /* Arrange label and input in a row */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+    flex: 0 0 150px; /* Fixed width for labels */
+    margin-right: 10px; /* Space between label and input */
+}
+
+input, select {
+    flex: 1; /* Make input and select take the remaining space */
+    padding: 8px; /* Padding for inputs */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 4px; /* Rounded corners */
+}
+.path-box {
+    width: 100%; /* Full width of the page */
+    background-color: black; /* Black background */
+    color: white; /* White text color */
+    text-align: center; /* Center text horizontally */
+    padding: 10px; /* Decreased padding for less height */
+    margin-top: 20px; /* Space above the path box */
+    clear: both; /* Ensure it appears below floated elements */
+    height: 30px; /* Set a specific height */
+    line-height: 40px; /* Center text vertically */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+}
+
+
 .seating-area1 {
     display: flex; /* Ensure this container is using flex layout */
     flex-direction: row; /* Align children in a row */
@@ -394,7 +353,7 @@ th:nth-child(4), td:nth-child(4) {
     font-size: 1.5em; /* Adjust size as needed */
     font-weight: bold;
     color: black;
-    background-color: #f0f0f0;
+   
     width: 100px; /* Adjust width to fine-tune centering */
     height: 35px; /* Match the height of the seats */
     margin: 5px auto; /* Center horizontally */
@@ -415,7 +374,6 @@ th:nth-child(4), td:nth-child(4) {
     flex-grow: 1;
     z-index: 1; /* Allow the text to take up more space */
 }
-
 .rectangular-box-screen {
     position: absolute;
     background-color: brown;
@@ -425,9 +383,6 @@ th:nth-child(4), td:nth-child(4) {
     /* Extend to the bottom of the page */
     left: calc(45% - 100px); /* Adjust this to place it between D13 and D12 */
 }
-
-
-
 .seat {
     width: 35px;
     height: 35px;
@@ -451,7 +406,6 @@ th:nth-child(4), td:nth-child(4) {
 .seat.selected {
     background-color: red; /* Change color if selected */
 }
-
 .black-rectangle-container {
     position: relative; /* Container to position the paths absolutely */
     width: 100%;
@@ -469,6 +423,7 @@ th:nth-child(4), td:nth-child(4) {
     font-size: 1.3em; /* Adjust font size if needed */
     top: 50%; /* Center vertically relative to the black rectangle */
     transform: translateY(-50%); /* Adjust vertical alignment */
+    margin-top: 34%;
 }
 
 .path.left2 {
@@ -478,44 +433,40 @@ th:nth-child(4), td:nth-child(4) {
 .path.right2 {
     right: 200px; /* Space from the right edge */
 }
+.seat:hover {
+    background-color: lightblue; /* Highlight on hover */
+}
+button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px #007bff; /* Add a custom focus outline */
+}
+.path {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5); /* Slightly transparent for better visibility */
+    padding: 5px;
+    border-radius: 5px; /* Rounded edges */
+}
+.booked {
+    background-color: red; /* Red for booked seats */
+    color: white; /* Optional: Change text color */
+    cursor: not-allowed; /* Indicate unavailability */
+}
+
+
+
 @media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stack sections vertically */
-        height: auto; /* Adjust height */
+        flex-direction: column; /* Stack items on smaller screens */
     }
 
-    .booking-status, .warning-status {
-        width: 100%; /* Full width for smaller screens */
-        height: auto; /* Adjust height */
+    .form-container {
+        width: 100%; /* Make form full width */
+        left: 0; /* Reset left positioning */
     }
 
-    .ticket-booking {
-        max-width: 100%; /* Full width for smaller screens */
+    .status-table, .warning-table {
+        margin-left: 0; /* Center tables */
+        margin-right: 0;
+        margin-bottom: 20px; /* Space between tables */
     }
 }
-
-.seat.selected {
-    background-color: red; /* Change color to indicate selection */
-    cursor: not-allowed;
-}
-.seat.booked {
-    background-color: gray; /* Example color for booked seats */
-    cursor: not-allowed;
-}
-
-.seat {
-    width: 35px;
-    height: 35px;
-    background-color: green;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-    cursor: pointer;
-}
-.status-near-full {
-    background-color: #ffcc00; /* Yellow to indicate near full */
-}
-
-
