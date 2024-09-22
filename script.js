@@ -82,22 +82,26 @@ seats.forEach(seat => {
       seat.classList.remove('selected');
     });
   }
+  
   function updateBookingStatus(rank, seatCount) {
     const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
-    
-    // Trim the rank from the form to remove extra spaces
-    const trimmedRank = rank.trim();
+
+    let foundMatch = false; // Flag to track if a match is found
 
     rankRows.forEach(row => {
-        // Trim the rank from the table to ensure matching works with spaces
-        const statusCell = row.querySelector('td:first-child').textContent.trim();
+      const statusCell = row.querySelector('td:first-child').textContent.split(/[\s\/]+/)[0]; 
 
-        if (statusCell === trimmedRank) {
-            const totalCell = row.querySelector('.total');
+
+
+        // Debugging log to check the rank comparison
+        console.log(`Checking "${statusCell}" against "${rank}"`);
+
+        // Compare the rank from the form with the rank in the table
+        if (statusCell.trim() === rank.trim()) {
+            foundMatch = true; // Match found
             const bookedCell = row.querySelector('.bookeds');
             const remainingCell = row.querySelector('.remaining');
 
-            const totalSeats = parseInt(totalCell.textContent);
             const bookedSeats = parseInt(bookedCell.textContent);
             const remainingSeats = parseInt(remainingCell.textContent);
 
@@ -110,11 +114,16 @@ seats.forEach(seat => {
             // Update the booked and remaining seats
             bookedCell.textContent = bookedSeats + seatCount;
             remainingCell.textContent = remainingSeats - seatCount;
-            
-            alert(`Booking confirmed for ${seatCount} seats in ${trimmedRank}.`);
+
+            alert(`Booking confirmed for ${seatCount} seats in ${rank}.`);
         }
     });
+
+    if (!foundMatch) {
+        displayErrorMessage('Rank not found in the table.');
+    }
 }
+
 
   function clearBookingForm() {
     bookingForm.reset(); // Reset form fields
