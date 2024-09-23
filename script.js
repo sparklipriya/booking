@@ -116,6 +116,7 @@ seats.forEach(seat => {
             remainingCell.textContent = remainingSeats - seatCount;
 
             alert(`Booking confirmed for ${seatCount} seats in ${rank}.`);
+            updateWarningStatusTable(rank, remainingSeats - seatCount);
         }
     });
 
@@ -124,6 +125,36 @@ seats.forEach(seat => {
     }
 }
 
+function updateWarningStatusTable(rank, remainingSeats) {
+  const warningRows = document.querySelectorAll('#warningStatusTable tbody tr');
+  let foundMatch = false;
+
+  warningRows.forEach(row => {
+      const statusCell = row.querySelector('td:first-child').textContent.trim();
+
+      // Compare the rank from the booking status table with the rank in the warning table
+      if (statusCell.includes(rank) || rank.includes(statusCell)) {
+          foundMatch = true;
+
+          // Update the warning status based on remaining seats
+          const warningCell = row.querySelector('.warning');
+
+          if (remainingSeats <= 0) {
+              warningCell.textContent = 'Housefull';
+              warningCell.style.color = 'red'; // Set text color to red
+          } else {
+              warningCell.textContent = ''; // Clear warning if seats are available
+          }
+      }
+  });
+
+  // If no match is found, you may want to add a new row for that rank with "Housefull"
+  if (!foundMatch && remainingSeats <= 0) {
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `<td>${rank}</td><td class="warning" style="color: red;">Housefull</td>`;
+      document.querySelector('#warningStatusTable tbody').appendChild(newRow);
+  }
+}
 
   function clearBookingForm() {
     bookingForm.reset(); // Reset form fields

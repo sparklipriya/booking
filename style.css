@@ -15,7 +15,7 @@ body {
 
 .status-table,
 .warning-table {
-    margin-left: -20px;
+    margin-left: -10px;
     margin-right: 0px; /* Space between tables */
     background-color: #fff;
     padding: 15px;
@@ -72,6 +72,7 @@ tr:hover {
     display: flex; /* Use flexbox for centering */
     justify-content: center; /* Center text horizontally */
     align-items: center; /* Center text vertically */
+    
     height: 50px; /* Set height for the box */
     background-color: yellow; /* Background color */
     color: black; /* Text color */
@@ -81,13 +82,11 @@ tr:hover {
 .status-table {
     margin-bottom: 0; /* Eliminate space below the table */
 }
-
-.form-Wrapper{
-    width: 100%
+.form-Wrapper {
+    width: 100%;
 }
-
 .form-container-wrapper {
-    display: flex; 
+    display: flex;
     justify-content: center;
 }
 
