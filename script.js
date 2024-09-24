@@ -4,6 +4,7 @@ const maxSeatsInput = document.getElementById('seat');
 const bookingStatusTable = document.getElementById('bookingStatusTable');
 const errorContainer = document.getElementById('errorContainer'); // Container for error messages
 let selectedSeats = [];
+let isBooked = false;
 seats.forEach(seat => {
     seat.addEventListener('click', () => handleSeatSelection(seat));
   });
@@ -62,7 +63,8 @@ seats.forEach(seat => {
   
     // Display a success message
     alert(`Booking confirmed for seats: ${selectedSeats.join(', ')}`);
-  
+    saveTicketData(rank, name, seatCount, date, time);
+    isBooked = true;
     // Clear selected seats and reset form
     clearBookingForm();
   });
@@ -81,11 +83,12 @@ seats.forEach(seat => {
       seat.classList.add('booked');
       seat.classList.remove('selected');
     });
+    sessionStorage.setItem('bookedSeats', JSON.stringify(selectedSeats));
   }
   
   function updateBookingStatus(rank, seatCount) {
     const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
-
+    const trimmedRank = rank.trim(); 
     let foundMatch = false; // Flag to track if a match is found
 
     rankRows.forEach(row => {
@@ -97,7 +100,7 @@ seats.forEach(seat => {
         console.log(`Checking "${statusCell}" against "${rank}"`);
 
         // Compare the rank from the form with the rank in the table
-        if (statusCell.trim() === rank.trim()) {
+        if (statusCell.includes(trimmedRank) || trimmedRank.includes(statusCell)) {
             foundMatch = true; // Match found
             const bookedCell = row.querySelector('.bookeds');
             const remainingCell = row.querySelector('.remaining');
@@ -117,12 +120,26 @@ seats.forEach(seat => {
 
             alert(`Booking confirmed for ${seatCount} seats in ${rank}.`);
             updateWarningStatusTable(rank, remainingSeats - seatCount);
+            saveBookingStatusToSession();
         }
     });
 
     if (!foundMatch) {
         displayErrorMessage('Rank not found in the table.');
     }
+}
+function saveBookingStatusToSession() {
+  const statusData = [];
+  const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
+
+  rankRows.forEach(row => {
+      const rank = row.querySelector('td:first-child').textContent.trim();
+      const bookedSeats = row.querySelector('.bookeds').textContent.trim();
+      const remainingSeats = row.querySelector('.remaining').textContent.trim();
+      statusData.push({ rank, bookedSeats, remainingSeats });
+  });
+
+  sessionStorage.setItem('bookingStatus', JSON.stringify(statusData));
 }
 
 function updateWarningStatusTable(rank, remainingSeats) {
@@ -154,6 +171,19 @@ function updateWarningStatusTable(rank, remainingSeats) {
       newRow.innerHTML = `<td>${rank}</td><td class="warning" style="color: red;">Housefull</td>`;
       document.querySelector('#warningStatusTable tbody').appendChild(newRow);
   }
+  saveWarningStatusToSession();
+}
+function saveWarningStatusToSession() {
+    const warningData = [];
+    const warningRows = document.querySelectorAll('#warningStatusTable tbody tr');
+
+    warningRows.forEach(row => {
+        const rank = row.querySelector('td:first-child').textContent.trim();
+        const warningText = row.querySelector('.warning').textContent.trim();
+        warningData.push({ rank, warningText });
+    });
+
+    sessionStorage.setItem('warningStatus', JSON.stringify(warningData));
 }
 
   function clearBookingForm() {
@@ -164,3 +194,42 @@ function updateWarningStatusTable(rank, remainingSeats) {
   function displayErrorMessage(message) {
     errorContainer.textContent = message; // Display error message
   }
+
+  function saveTicketData(rank, name, seatCount, date, time) {
+    const ticketData = {
+        rank,
+        name,
+        seats: selectedSeats,
+        date,
+        time,
+    };
+
+    // Store data in session storage
+    sessionStorage.setItem('ticketData', JSON.stringify(ticketData));
+    console.log('Saving ticket data:', ticketData);
+
+}
+
+  function displayTickets() {
+    // Collect form data
+    if (!isBooked) {
+      alert('Please book your tickets first.');
+      return;
+  }
+
+    
+    // Redirect to the tickets page
+    window.location.href = 'tickets.html'; // Ensure this file exists
+}
+document.addEventListener('DOMContentLoaded', () => {
+  // Get booked seats from sessionStorage
+  const bookedSeats = JSON.parse(sessionStorage.getItem('bookedSeats')) || [];
+
+  // Apply booked class to each booked seat
+  bookedSeats.forEach(seatId => {
+      const seat = document.getElementById(seatId);
+      if (seat) {
+          seat.classList.add('booked');
+      }
+  });
+});

@@ -98,7 +98,13 @@ tr:hover {
     width: 50%;
 }
 
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Space between the buttons */
+}
+
 button {
+    width: 45%;
     padding: 10px; /* Button padding */
     background-color: #007bff; /* Button color */
     color: white; /* Button text color */
@@ -132,6 +138,7 @@ input, select {
     border: 1px solid #ccc; /* Border style */
     border-radius: 4px; /* Rounded corners */
 }
+
 .path-box {
     width: 100%; /* Full width of the page */
     background-color: black; /* Black background */
@@ -424,7 +431,7 @@ input, select {
     position: absolute; /* Positioning paths absolutely */
     color: white; /* Text color */
     font-size: 1.3em; /* Adjust font size if needed */
-    top: 50%; /* Center vertically relative to the black rectangle */
+    top: 54%; /* Center vertically relative to the black rectangle */
     transform: translateY(-50%); /* Adjust vertical alignment */
     margin-top: 34%;
 }

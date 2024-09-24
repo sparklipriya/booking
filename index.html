@@ -65,9 +65,9 @@
                     <select id="rank" required>
                         <option value="" disabled selected>Select your rank</option>
                         <option value="NCE">NCE/CIV</option>
-                        <option value="CPL">CPL&Below</option>
+                        <option value="CPL">CPL & Below</option>
                         <option value="SGT">SGT</option>
-                        <option value="WARRANT">WARRANTRANK</option>
+                        <option value="WARRANT">WARRANT RANK</option>
                         <option value="OFFICERS">OFFICERS</option>
                     </select>
                 </div>
@@ -87,7 +87,16 @@
                     <label for="time">Timing:</label>
                     <input type="time" id="time" required>
                 </div>
-                <button type="submit">Submit</button>
+                
+                <div class="form-group button-group">
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="displayTickets()">Display My Tickets</button>
+
+                </div>
+                
+                    
+                    
+                
             </form>
         </div>
         </div>
