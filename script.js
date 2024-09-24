@@ -83,9 +83,14 @@ seats.forEach(seat => {
       seat.classList.add('booked');
       seat.classList.remove('selected');
     });
-    sessionStorage.setItem('bookedSeats', JSON.stringify(selectedSeats));
+    updateBookedSeatsInSession(selectedSeats);
   }
-  
+  function updateBookedSeatsInSession(seats) {
+    let bookedSeats = JSON.parse(sessionStorage.getItem('bookedSeats')) || [];
+    bookedSeats = [...new Set([...bookedSeats, ...seats])]; // Avoid duplicates
+    sessionStorage.setItem('bookedSeats', JSON.stringify(bookedSeats));
+}
+
   function updateBookingStatus(rank, seatCount) {
     const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
     const trimmedRank = rank.trim(); 
@@ -233,6 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const seat = document.getElementById(seatId);
       if (seat) {
           seat.classList.add('booked');
+          
       }
   });
+bookedSeats.forEach(seatId => {
+  const seat = document.getElementById(seatId);
+  if (seat) {
+      seat.style.pointerEvents = 'none'; // Make booked seats unclickable
+  }
+});
 });
