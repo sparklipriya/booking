@@ -203,6 +203,9 @@ function saveWarningStatusToSession() {
         date,
         time,
     };
+    const bookingHistory = JSON.parse(sessionStorage.getItem('bookingHistory')) || [];
+    bookingHistory.push(ticketData);
+    sessionStorage.setItem('bookingHistory', JSON.stringify(bookingHistory));
 
     // Store data in session storage
     sessionStorage.setItem('ticketData', JSON.stringify(ticketData));

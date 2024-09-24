@@ -408,7 +408,18 @@ input, select {
     cursor: pointer;
 }
 
+.history-button {
+    background: #007bff; /* Blue background for the History button */
+    width: auto; /* Make the button width auto */
+    height: 50px; /* Increase height as desired */
+    padding: 5px 15px; /* Adjust padding for smaller size */
+    margin-left: 60px; /* Shift further to the right */
+    font-size: 16px; /* Optional: adjust font size for better visibility */
+}
 
+.history-button:hover {
+    background: #0056b3; /* Darker blue on hover */
+}
 .steps {
     background-color: brown;
 }
