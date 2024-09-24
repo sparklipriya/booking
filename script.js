@@ -126,12 +126,26 @@ seats.forEach(seat => {
             alert(`Booking confirmed for ${seatCount} seats in ${rank}.`);
             updateWarningStatusTable(rank, remainingSeats - seatCount);
             saveBookingStatusToSession();
+            saveTableState();
         }
     });
 
     if (!foundMatch) {
         displayErrorMessage('Rank not found in the table.');
     }
+}
+function saveTableState() {
+  const statusData = [];
+  const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
+
+  rankRows.forEach(row => {
+      const rank = row.querySelector('td:first-child').textContent.trim();
+      const bookedSeats = row.querySelector('.bookeds').textContent.trim();
+      const remainingSeats = row.querySelector('.remaining').textContent.trim();
+      statusData.push({ rank, bookedSeats, remainingSeats });
+  });
+
+  sessionStorage.setItem('bookingStatus', JSON.stringify(statusData));
 }
 function saveBookingStatusToSession() {
   const statusData = [];
@@ -238,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const seat = document.getElementById(seatId);
       if (seat) {
           seat.classList.add('booked');
-          
       }
   });
 bookedSeats.forEach(seatId => {
@@ -248,3 +261,45 @@ bookedSeats.forEach(seatId => {
   }
 });
 });
+document.addEventListener('DOMContentLoaded', function() {
+  loadTableState();
+});
+
+function loadTableState() {
+  const statusData = JSON.parse(sessionStorage.getItem('bookingStatus')) || [];
+
+  const rankRows = document.querySelectorAll('#bookingStatusTable tbody tr');
+
+  rankRows.forEach(row => {
+      const rank = row.querySelector('td:first-child').textContent.trim();
+      const matchedData = statusData.find(data => data.rank === rank);
+      
+      if (matchedData) {
+          row.querySelector('.bookeds').textContent = matchedData.bookedSeats;
+          row.querySelector('.remaining').textContent = matchedData.remainingSeats;
+      }
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  loadWarningStatus();
+});
+
+function loadWarningStatus() {
+  const warningData = JSON.parse(sessionStorage.getItem('warningStatus')) || [];
+  const warningRows = document.querySelectorAll('#warningStatusTable tbody tr');
+
+  warningRows.forEach(row => {
+      const rank = row.querySelector('td:first-child').textContent.trim();
+      const matchedData = warningData.find(data => data.rank === rank);
+      
+      if (matchedData) {
+          const warningCell = row.querySelector('.warning');
+          warningCell.textContent = matchedData.warningText;
+          if (matchedData.warningText === 'Housefull') {
+              warningCell.style.color = 'red'; // Ensure text is red for "Housefull"
+          } else {
+              warningCell.style.color = ''; // Reset color if not housefull
+          }
+      }
+  });
+}

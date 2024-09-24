@@ -78,11 +78,24 @@
             document.getElementById('ticketDetails').innerHTML = '<p>No ticket data found.</p>';
         }
         function goBack() {
-        
-        
-        // Redirect to the booking page
-        window.location.replace('userpage.html'); 
-        }
+    // Get the referrer (the URL of the previous page)
+    const previousPage = document.referrer;
+    
+    // Log the referrer for debugging
+    console.log('Previous Page:', previousPage);
+
+    // Define conditions to redirect based on the previous page
+    if (previousPage.includes('userpage.html')) {
+        window.location.replace('userpage.html');
+    } else if (previousPage.includes('adminpage.html')) {
+        window.location.replace('adminpage.html');
+    } else {
+        // Default action if previous page is neither user nor admin page
+        window.location.replace('defaultpage.html'); // Change this to your desired fallback page
+    }
+}
+
+
         
     </script>
 </body>
