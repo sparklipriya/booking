@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: wheat;
     text-align: center;
     margin: 0; /* Remove default body margin */
     padding: 0; /* Remove default body padding */
@@ -17,7 +17,16 @@ body {
 .warning-table {
     margin-left: -10px;
     margin-right: 0px; /* Space between tables */
-    background-color: #fff;
+    background-color: rgb(9, 238, 188);
+    padding: 15px;
+    border-radius: 8px;
+    
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.warning-table {
+    margin-left: -150px;
+    margin-right: 0px; /* Space between tables */
+    background-color: rgb(9, 238, 188);
     padding: 15px;
     border-radius: 8px;
     
@@ -91,7 +100,7 @@ tr:hover {
 }
 
 .form-container {
-    background-color: #fff; /* Background color */
+    background-color: rgb(9, 238, 188);/* Background color */
     padding: 15px; /* Padding for the form */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
