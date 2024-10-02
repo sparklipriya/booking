@@ -13,6 +13,10 @@ body {
     padding: 0; /* Remove default body padding */
 }
 
+#warningStatusTable{
+    margin-left: 1rem;
+}
+
 .status-table,
 .warning-table {
     margin-left: -10px;
@@ -29,7 +33,7 @@ body {
     background-color: rgb(9, 238, 188);
     padding: 15px;
     border-radius: 8px;
-    
+    width: 30%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -95,6 +99,7 @@ tr:hover {
     width: 100%;
 }
 .form-container-wrapper {
+    width: 85%;
     display: flex;
     justify-content: center;
 }
@@ -422,7 +427,7 @@ input, select {
     width: auto; /* Make the button width auto */
     height: 50px; /* Increase height as desired */
     padding: 5px 15px; /* Adjust padding for smaller size */
-    margin-left: 60px; /* Shift further to the right */
+    margin: 1rem 1rem;
     font-size: 16px; /* Optional: adjust font size for better visibility */
 }
 
