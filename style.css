@@ -142,7 +142,7 @@ button:hover {
 }
 
 label {
-    flex: 0 0 50px; /* Fixed width for labels */
+    flex: 0 0 60px; /* Fixed width for labels */
     margin-right: 25px; /* Space between label and input */
 }
 
