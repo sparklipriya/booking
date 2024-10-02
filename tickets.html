@@ -5,24 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Tickets</title>
     <style>
+        html, body {
+            height: 100%; /* Ensure full height */
+            margin: 0; /* Remove default margins */
+        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 20px;
+            background-image: url('background.jpg'); /* Replace with your image path */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
             color: #333;
+            text-align: center; /* Center align body text */
         }
         h1 {
-            color: #007bff;
-            text-align: center;
+            color: black;
             margin-bottom: 20px;
+            margin-top: 40px;
+        }
+        h2{
+            color: #007bff;
+        }
+        .curved-text {
+            font-size: 36px; /* Increased font size */
+            fill: #007bff;
+            font-weight: bold; /* Bold text */
         }
         .ticket-info {
-            background: white;
+            background: rgba(130, 228, 130, 0.5); /* More transparent background */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
             max-width: 500px;
+            height: auto; /* Allow height to adjust based on content */
+            min-height: 200px; /* Minimum height for visibility */
+            
         }
         .ticket-info p {
             margin: 10px 0;
@@ -46,19 +64,33 @@
         }
         .footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 20px;
             font-size: 0.9em;
             color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>Your Ticket Details</h1>
+    
+   <svg width="100%" height="100px" viewBox="0 0 1000 100" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <path id="curve" d="M 250,90 Q 500,10 900,80" /> <!-- Curved arc -->  
+        </defs>
+        <text width="100%">
+            <textPath xlink:href="#curve" class="curved-text">
+                AIR FORCE STATION CAR NICOBAR
+            </textPath>
+        </text>
+    </svg>
+    <img src="ids logo.jpg" alt="IDS Logo" style="max-width: 5%; height: 2%; margin-top: 0px;"/>
+    <h2>37 WING AF</h2>
+
+    <h1>YOUR TICKET DETAILS</h1>
     <div class="ticket-info" id="ticketDetails"></div>
-    <button onclick="goBack()">Go Back</button>
-     <button onclick="window.print()">Print Tickets</button>
+    <button onclick="goBack()">GO BACK</button>
+    <button onclick="window.print()">PRINT TICKETS</button>
     <div class="footer">
-        <p>Thank you for booking with us!</p>
+        <p>THANK YOU FOR BOOKING WITH US!</p>
     </div>
 
     <script>
@@ -68,35 +100,27 @@
         // Display the data
         if (ticketData) {
             document.getElementById('ticketDetails').innerHTML = `
-                <p><strong>Rank:</strong> ${ticketData.rank}</p>
-                <p><strong>Name:</strong> ${ticketData.name}</p>
-                <p><strong>Seat Number(s):</strong> ${ticketData.seats.join(', ')}</p> 
-                <p><strong>Date:</strong> ${ticketData.date}</p>
-                <p><strong>Timing:</strong> ${ticketData.time}</p>
+                <p><strong>RANK:</strong> ${ticketData.rank}</p>
+                <p><strong>NAME:</strong> ${ticketData.name}</p>
+                <p><strong>SEAT NUMBER(S):</strong> ${ticketData.seats.join(', ')}</p> 
+                <p><strong>DATE:</strong> ${ticketData.date}</p>
+                <p><strong>TIMING:</strong> ${ticketData.time}</p>
             `;
         } else {
             document.getElementById('ticketDetails').innerHTML = '<p>No ticket data found.</p>';
         }
         function goBack() {
-    // Get the referrer (the URL of the previous page)
-    const previousPage = document.referrer;
-    
-    // Log the referrer for debugging
-    console.log('Previous Page:', previousPage);
+            const previousPage = document.referrer;
+            console.log('Previous Page:', previousPage);
 
-    // Define conditions to redirect based on the previous page
-    if (previousPage.includes('userpage.html')) {
-        window.location.replace('userpage.html');
-    } else if (previousPage.includes('adminpage.html')) {
-        window.location.replace('adminpage.html');
-    } else {
-        // Default action if previous page is neither user nor admin page
-        window.location.replace('defaultpage.html'); // Change this to your desired fallback page
-    }
-}
-
-
-        
+            if (previousPage.includes('userpage.html')) {
+                window.location.replace('userpage.html');
+            } else if (previousPage.includes('adminpage.html')) {
+                window.location.replace('adminpage.html');
+            } else {
+                window.location.replace('defaultpage.html'); // Change this to your desired fallback page
+            }
+        }
     </script>
 </body>
 </html>
