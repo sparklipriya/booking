@@ -58,6 +58,9 @@ bookingForm.addEventListener("submit", (event) => {
   // Book the selected seats
   bookSelectedSeats();
 
+  // Update warning table
+  warningTableUpdate();
+
   // Update booking status
   updateBookingStatus(rank, selectedSeats.length);
 
