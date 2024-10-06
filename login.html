@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #5cb85c;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #4cae4c;
+        }
+        #message {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .toggle-form {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 id="formTitle">Login</h1>
+        <form id="loginForm">
+            <label for="role">Role:</label>
+            <select id="role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message"></div>
+        <div class="toggle-form">
+            <span id="toggleText"><a href="signup.html">Need an account? Sign up</a></span>
+        </div>
+    </div>
+
+    <script>
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const ADMIN_USERNAME = 'admin';
+        const ADMIN_PASSWORD = 'admin123';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+
+            // Check if the user is an admin
+            if (role === 'admin' && username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                document.getElementById('message').textContent = 'Welcome, Admin!';
+                setTimeout(() => {
+                    window.location.href = 'adminpage.html'; // Redirect to adminpage.html
+                }, 1000);
+            } else if (role === 'user') {
+                const user = users.find(u => u.username === username && u.password === password);
+                if (user) {
+                    document.getElementById('message').textContent = `Welcome, ${user.username}!`;
+                    setTimeout(() => {
+                        window.location.href = 'userpage.html'; // Redirect to userpage.html
+                    }, 1000); 
+                } else {
+                    document.getElementById('message').textContent = 'Invalid username or password.';
+                }
+            } else {
+                document.getElementById('message').textContent = 'Invalid username or password.';
+            }
+        });
+
+        document.getElementById('role').addEventListener('change', function() {
+            const role = this.value;
+            if (role === 'admin') {
+                document.getElementById('toggleText').style.display = 'none'; // Hide signup option
+            } else {
+                document.getElementById('toggleText').style.display = 'block'; // Show signup option
+            }
+        });
+    </script>
+</body>
+</html>

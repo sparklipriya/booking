@@ -60,7 +60,7 @@ bookingForm.addEventListener("submit", (event) => {
 
   // Update booking status
   updateBookingStatus(rank, selectedSeats.length);
-
+  warningTableUpdate();
   // Display a success message
   alert(`Booking confirmed for seats: ${selectedSeats.join(", ")}`);
   saveTicketData(rank, name, seatCount, date, time);
@@ -256,8 +256,8 @@ function warningTableUpdate() {
 }
 
 // This will ensure the function runs when the page fully loads
-window.addEventListener('load', function() {
-  warningTableUpdate(); // Call the function when the page loads
+window.addEventListener('load',function(){
+  warningTableUpdate() // Call the function when the page loads
 });
 
 
