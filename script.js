@@ -92,48 +92,70 @@ function updateBookedSeatsInSession(seats) {
 }
 
 function updateBookingStatus(rank, seatCount) {
+  console.log(`Updating booking status for rank: ${rank} with seatCount: ${seatCount}`);
   const rankRows = document.querySelectorAll("#bookingStatusTable tbody tr");
+  let ranksToUpdate = [];
+
+  // Determine which ranks to update based on the selected rank
   const trimmedRank = rank.trim();
-  let foundMatch = false; // Flag to track if a match is found
+  
+  if (["AC", "LAC", "CPL", "AGV", "DSC", "NCE(E)"].includes(trimmedRank)) {
+    ranksToUpdate = ["CPL & BELOW/DSC/NC(E)"]; // Update CPL & Below row
+  } else if (trimmedRank === "SGT") {
+    ranksToUpdate = ["SGT"]; // Only update SGT row
+  } else if (["JWO", "WO", "MWO"].includes(trimmedRank)) {
+    ranksToUpdate = ["WARRANT RANK"]; // Update Warrant ranks row
+  } else {
+    ranksToUpdate = ["OFFICERS"]; // Update Officers row
+  }
 
-  rankRows.forEach((row) => {
-    const statusCell = row
-      .querySelector("td:first-child")
-      .textContent.split(/[\s\/]+/)[0];
+  let foundMatch = false;
 
-    // Debugging log to check the rank comparison
-    console.log(`Checking "${statusCell}" against "${rank}"`);
+  ranksToUpdate.forEach((rankToUpdate) => {
+    rankRows.forEach((row) => {
+      const statusCell = row.querySelector("td:first-child").textContent.trim(); // Get the rank from the row
 
-    // Compare the rank from the form with the rank in the table
-    if (statusCell.includes(trimmedRank) || trimmedRank.includes(statusCell)) {
-      foundMatch = true; // Match found
-      const bookedCell = row.querySelector(".bookeds");
-      const remainingCell = row.querySelector(".remaining");
-
-      const bookedSeats = parseInt(bookedCell.textContent);
-      const remainingSeats = parseInt(remainingCell.textContent);
-
-      // Check if enough seats are available
-      if (remainingSeats < seatCount) {
-        displayErrorMessage("Not enough remaining seats available.");
-        return;
+      // Check if the row corresponds to the rank to update
+      if (statusCell === rankToUpdate) {
+        foundMatch = true; // Match found
+        const bookedCell = row.querySelector(".bookeds");
+        const remainingCell = row.querySelector(".remaining");
+      
+        // Check if bookedCell and remainingCell are found
+        if (!bookedCell || !remainingCell) {
+          console.error("Booked or remaining cell not found for rank:", rankToUpdate);
+          return; // Exit if elements are not found
+        }
+      
+        const bookedSeats = parseInt(bookedCell.textContent) || 0;
+        const remainingSeats = parseInt(remainingCell.textContent) || 0;
+      
+        // Check if enough seats are available
+        if (remainingSeats < seatCount) {
+          displayErrorMessage("Not enough remaining seats available.");
+          return;
+        }
+      
+        // Update the booked and remaining seats
+        bookedCell.textContent = bookedSeats + seatCount;
+        remainingCell.textContent = remainingSeats - seatCount;
+      
+        alert(`Booking confirmed for ${seatCount} seats in ${rankToUpdate}.`);
+        updateWarningStatusTable(rankToUpdate, remainingSeats - seatCount);
+        saveBookingStatusToSession();
+        saveTableState();
       }
-
-      // Update the booked and remaining seats
-      bookedCell.textContent = bookedSeats + seatCount;
-      remainingCell.textContent = remainingSeats - seatCount;
-
-      alert(`Booking confirmed for ${seatCount} seats in ${rank}.`);
-      updateWarningStatusTable(rank, remainingSeats - seatCount);
-      saveBookingStatusToSession();
-      saveTableState();
-    }
+      
+    });
   });
 
   if (!foundMatch) {
     displayErrorMessage("Rank not found in the table.");
   }
 }
+
+
+
 function saveTableState() {
   const statusData = [];
   const rankRows = document.querySelectorAll("#bookingStatusTable tbody tr");
