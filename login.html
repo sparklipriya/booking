@@ -53,11 +53,7 @@
             margin-top: 10px;
             color: red;
         }
-        .toggle-form {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .passwordf {
+        .toggle-form, .passwordf {
             text-align: center;
             margin-top: 15px;
         }
@@ -72,57 +68,57 @@
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
             </select>
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
             <label for="password">Password:</label>
             <input type="password" id="password" required>
             <button type="submit">Login</button>
         </form>
         <div id="message"></div>
-        <div class="toggle-form">
-            <span id="toggleText"><a href="signup.html">Need an account? Sign up</a></span>
+        <div class="toggle-form" id="signupLink" style="display: block;">
+            <span><a href="signup.html">Need an account? Sign up</a></span>
         </div>
-        <div class="passwordf" id="passwordLink" style="display: none;">
+        <div class="passwordf" id="passwordLink" style="display: block;">
             <span><a href="resetpassword.html">Forgot Password?</a></span>
         </div>
     </div>
 
     <script>
         const users = JSON.parse(localStorage.getItem('users')) || [];
-        const ADMIN_EMAIL = 'admin@gmail.com';
+        const ADMIN_USERNAME = 'admin';
         const ADMIN_PASSWORD = 'admin123';
 
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             const role = document.getElementById('role').value;
 
-            if (role === 'admin' && email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            if (role === 'admin' && username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
                 document.getElementById('message').textContent = 'Welcome, Admin!';
                 setTimeout(() => {
                     window.location.href = 'adminpage.html';
                 }, 1000);
             } else if (role === 'user') {
-                const user = users.find(u => u.email === email && u.password === password);
+                const user = users.find(u => u.username === username && u.password === password);
                 if (user) {
-                    document.getElementById('message').textContent = `Welcome, ${user.email}!`;
+                    document.getElementById('message').textContent = `Welcome, ${user.username}!`;
                     setTimeout(() => {
                         window.location.href = 'userpage.html';
                     }, 1000);
                 } else {
-                    document.getElementById('message').textContent = 'Invalid email or password.';
+                    document.getElementById('message').textContent = 'Invalid username or password.';
                 }
             } else {
-                document.getElementById('message').textContent = 'Invalid email or password.';
+                document.getElementById('message').textContent = 'Invalid username or password.';
             }
         });
 
         document.getElementById('role').addEventListener('change', function() {
             const role = this.value;
-            document.getElementById('toggleText').style.display = role === 'admin' ? 'none' : 'block';
-            document.getElementById('passwordLink').style.display = role === 'user' ? 'block' : 'none'; // Show/Hide forgot password link
+            document.getElementById('signupLink').style.display = role === 'admin' ? 'none' : 'block';
+            document.getElementById('passwordLink').style.display = role === 'admin' ? 'none' : 'block';
         });
     </script>
 </body>
