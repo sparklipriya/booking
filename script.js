@@ -5,9 +5,98 @@ const bookingStatusTable = document.getElementById("bookingStatusTable");
 const errorContainer = document.getElementById("errorContainer"); // Container for error messages
 let selectedSeats = [];
 let isBooked = false;
+
+// Define seat ranges for different ranks
+const seatRanges = {
+  "CPL & BELOW/DSC/NC(E)": [
+    ...Array.from({ length: 20 }, (_, i) => `H${i + 1}`), // H1 to H20
+    ...Array.from({ length: 26 }, (_, i) => `J${i + 1}`), // J1 to J26
+    ...Array.from({ length: 26 }, (_, i) => `K${i + 1}`), // K1 to K26
+    ...Array.from({ length: 26 }, (_, i) => `L${i + 1}`), // L1 to L26
+    ...Array.from({ length: 26 }, (_, i) => `M${i + 1}`), // M1 to M26
+    ...Array.from({ length: 10 }, (_, i) => `N${i + 1}`)  // N1 to N10
+  ],
+  "SGT": [
+    ...Array.from({ length: 20 }, (_, i) => `F${i + 1}`), // F1 to F20
+    ...Array.from({ length: 20 }, (_, i) => `G${i + 1}`), // G1 to G20
+    ...Array.from({ length: 12 }, (_, i) => `D${i + 13}`), // D13 to D24
+    ...Array.from({ length: 12 }, (_, i) => `E${i + 13}`)  // E13 to E24
+  ],
+  "OFFICERS": [
+    ...Array.from({ length: 12 }, (_, i) => `A${i + 1}`),  // A1 to A12
+    ...Array.from({ length: 11 }, (_, i) => `B${i + 1}`),  // B1 to B11
+    ...Array.from({ length: 12 }, (_, i) => `C${i + 1}`),  // C1 to C12
+    ...Array.from({ length: 12 }, (_, i) => `D${i + 1}`),  // D1 to D12
+    ...Array.from({ length: 12 }, (_, i) => `E${i + 1}`)   // E1 to E12
+  ],
+  "WARRANT RANK": [
+    ...Array.from({ length: 12 }, (_, i) => `A${i + 13}`), // A13 to A24
+    ...Array.from({ length: 11 }, (_, i) => `B${i + 12}`), // B12 to B22
+    ...Array.from({ length: 12 }, (_, i) => `C${i + 13}`)  // C13 to C24
+  ]
+};
+
 seats.forEach((seat) => {
   seat.addEventListener("click", () => handleSeatSelection(seat));
 });
+
+
+// Event listener for rank selection
+const rankInput = document.getElementById("rank");
+rankInput.addEventListener("change", () => {
+  const selectedRank = rankInput.value;
+  toggleSeatAvailability(selectedRank);
+  clearSelectedSeats(); // Clear previous selections
+});
+
+// Function to enable/disable seats based on the selected rank
+function toggleSeatAvailability(rank) {
+  seats.forEach(seat => {
+    const seatId = seat.id;
+
+    if (["AC", "LAC", "CPL", "AGV", "DSC", "NCE(E)"].includes(rank)) {
+      if (seatRanges["CPL & BELOW/DSC/NC(E)"].includes(seatId)) {
+        seat.style.pointerEvents = "auto"; // Enable
+        seat.style.opacity = "1"; // Make it visible
+      } else {
+        seat.style.pointerEvents = "none"; // Disable
+        seat.style.opacity = "0.5"; // Dim it to indicate it's unclickable
+        seat.classList.remove("selected"); // Deselect if it's not clickable
+      }
+    } else if (rank === "SGT") {
+      if (seatRanges["SGT"].includes(seatId)) {
+        seat.style.pointerEvents = "auto"; // Enable
+        seat.style.opacity = "1"; // Make it visible
+      } else {
+        seat.style.pointerEvents = "none"; // Disable
+        seat.style.opacity = "0.5"; // Dim it to indicate it's unclickable
+        seat.classList.remove("selected"); // Deselect if it's not clickable
+      }
+    } else if (["FG-OFFR", "FLT-IT", "SQN-LDR", "WG CDR"].includes(rank)) {
+      if (seatRanges["OFFICERS"].includes(seatId)) {
+        seat.style.pointerEvents = "auto"; // Enable
+        seat.style.opacity = "1"; // Make it visible
+      } else {
+        seat.style.pointerEvents = "none"; // Disable
+        seat.style.opacity = "0.5"; // Dim it to indicate it's unclickable
+        seat.classList.remove("selected"); // Deselect if it's not clickable
+      }
+    } else if (["JWO", "WO", "MWO"].includes(rank)) {
+      if (seatRanges["WARRANT RANK"].includes(seatId)) {
+        seat.style.pointerEvents = "auto"; // Enable
+        seat.style.opacity = "1"; // Make it visible
+      } else {
+        seat.style.pointerEvents = "none"; // Disable
+        seat.style.opacity = "0.5"; // Dim it to indicate it's unclickable
+        seat.classList.remove("selected"); // Deselect if it's not clickable
+      }
+    } else {
+      seat.style.pointerEvents = "auto"; // Enable all other seats
+      seat.style.opacity = "1"; // Reset opacity
+    }
+  });
+}
+
 
 function handleSeatSelection(seat) {
   const seatCount = parseInt(maxSeatsInput.value) || 0;
@@ -30,6 +119,16 @@ function handleSeatSelection(seat) {
   } else {
     alert(`You can only select ${seatCount} seat(s).`);
   }
+}
+
+function clearSelectedSeats() {
+  selectedSeats.forEach(seatId => {
+    const seat = document.getElementById(seatId);
+    if (seat) {
+      seat.classList.remove("selected"); // Remove selected class
+    }
+  });
+  selectedSeats = []; // Clear selected seats
 }
 
 bookingForm.addEventListener("submit", (event) => {

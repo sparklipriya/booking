@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditorium Seat Booking</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div class="container">
@@ -20,17 +21,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr>
-                        <td>NCE/CIV</td>
-                        <td class="total">52</td>
+                        <td>CPL & BELOW/DSC/NC(E)</td>
+                        <td class="total">124</td>
                         <td class="bookeds">0</td>
-                        <td class="remaining">52</td>
-                    </tr>
-                    <tr>
-                        <td>CPL & BELOW</td>
-                        <td class="total">72</td>
-                        <td class="bookeds">0</td>
-                        <td class="remaining">72</td>
+                        <td class="remaining">124</td>
                     </tr>
                     <tr>
                         <td>SGT</td>
@@ -40,35 +36,46 @@
                     </tr>
                     <tr>
                         <td>WARRANT RANK</td>
-                        <td class="total">48</td>
+                        <td class="total">35</td>
                         <td class="bookeds">0</td>
-                        <td class="remaining">48</td>
+                        <td class="remaining">35</td>
                     </tr>
                     <tr>
                         <td>OFFICERS</td>
-                        <td class="total">46</td>
+                        <td class="total">36</td>
                         <td class="bookeds">0</td>
-                        <td class="remaining">46</td>
+                        <td class="remaining">36</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div class="screen-box">SCREEN</div>
         <div class="form-Wrapper">
 
-        <div class="screen-box">SCREEN</div>
-
+        
+        
         <div class="form-container-wrapper">
             <div class="form-container">
             <form class="booking-form" id="bookingForm">
                 <div class="form-group">
-                    <label for="rank">Rank:</label>
+                    <label for="rank">RANK:</label>
                     <select id="rank" required>
                         <option value="" disabled selected>Select your rank</option>
-                        <option value="NCE">NCE/CIV</option>
-                        <option value="CPL">CPL & Below</option>
+                        <option value="AGV">AGV</option>
+                        <option value="AC">AC</option>
+                        <option value="LAC">LAC</option>
+                        <option value="CPL">CPL</option>
                         <option value="SGT">SGT</option>
-                        <option value="WARRANT">WARRANT RANK</option>
-                        <option value="OFFICERS">OFFICERS</option>
+                        <option value="JWO">JWO</option>
+                        <option value="WO">WO</option>
+                        <option value="MWO">MWO</option>
+                        <option value="FG-OFFR">FG-OFFR</option>
+                        <option value="FLT-IT">FLT-IT</option>
+                        <option value="SQN-LDR">SQN-LDR</option>
+                        <option value="WG CDR">WG CDR</option>
+                        
+                        <option value="NCE(E)">NCE(E)</option>
+                        <option value="DSC">DSC</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -99,6 +106,7 @@
                 
             </form>
         </div>
+
         </div>
         </div>
 
@@ -112,12 +120,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr>
-                        <td>NCE/CIV</td>
-                        <td class="warning">-</td>
-                    </tr>
-                    <tr>
-                        <td>CPL & BELOW</td>
+                        <td>CPL & BELOW/DSC/NC(E)</td>
                         <td class="warning">-</td>
                     </tr>
                     <tr>
@@ -134,12 +139,13 @@
                     </tr>
                 </tbody>
             </table>
+            
         </div>
         
         
     </div>
     <div class="path-box">
-        <p>Path</p>
+        <p>PATH</p>
     </div>
     <div class="seating-areaA">
         <!-- Upper Seats N Row -->
@@ -382,10 +388,8 @@
             <div class="seat" id="F1">F1</div>
         </div>
     </div>
-    <div class="black-rectangle-container"></div>
-        <div class="black-rectangle2"></div>
-        <div class="path left2">Path</div>
-        <div class="path right2">Path</div>
+    <div class="path-box">
+        <p>PATH</p>
     </div>
     
  
